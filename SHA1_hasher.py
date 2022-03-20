@@ -1,5 +1,9 @@
 from urllib.request import urlopen
 import hashlib
+from colorama import init
+from termcolor import colored
+init(convert=True)
+
 
 sha1hash = input("[*] Enter SHA1 Hash Value: ")
 
@@ -8,9 +12,10 @@ passlist = str(urlopen('https://raw.githubusercontent.com/danielmiessler/SecList
 for password in passlist.split('\n'):
     hashguess = hashlib.sha1(bytes(password, 'utf-8')).hexdigest()
     if hashguess == sha1hash:
-        print("[+] The Password is: " + str(password))
+        print(colored("[+] The Password is: " + str(password), 'green'))
         quit()
+        break
     else:
-        print("[-] Password quess " + str(password) + " does not match, trying again...")
+        print(colored("[-] Password quess " + str(password) + " does not match, trying again...", 'red'))
 
-print("Password nit in passwordlist")
+print("Password is not in passwordlist")
